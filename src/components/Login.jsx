@@ -1,13 +1,12 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import axios from "../api/axios";
+import { axiosInstance } from "../api/axios";
 import { useAuth } from "../hooks/useAuth";
 
 const LOGIN_URL = "/auth/login";
 const Login = () => {
-  const { auth, setAuth } = useAuth();
-  console.log(auth);
+  const { setAuth } = useAuth();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -16,8 +15,8 @@ const Login = () => {
   const userRef = useRef();
   const errRef = useRef();
 
-  const [user, setUser] = useState("nasir");
-  const [pwd, setPwd] = useState("pwd123");
+  const [user, setUser] = useState("admin");
+  const [pwd, setPwd] = useState("Password@123");
   const [errMsg, setErrMsg] = useState("");
 
   useEffect(() => {
@@ -30,10 +29,9 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log({ user, pwd });
 
     try {
-      const response = await axios.post(
+      const response = await axiosInstance.post(
         LOGIN_URL,
         JSON.stringify({ user, pwd }),
         {
@@ -41,8 +39,6 @@ const Login = () => {
           withCredentials: true,
         }
       );
-      console.log(JSON.stringify(response?.data));
-      //console.log(JSON.stringify(response));
       const accessToken = response?.data?.data?.accessToken;
       const roles = response?.data?.data?.roles;
       setAuth({ user, pwd, roles, accessToken });
