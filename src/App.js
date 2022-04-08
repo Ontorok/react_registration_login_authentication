@@ -17,6 +17,8 @@ const ROLES = {
 };
 
 function App() {
+  // const { auth } = useAuth();
+  // console.log(auth);
   return (
     <Routes>
       <Route path="/" element={<Layout />}>

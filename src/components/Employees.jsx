@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
-import { axiosInstance } from "../api/axios";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useAxiosPrivate } from "../hooks/useAxiosPrivate";
 
-const Users = () => {
+const Employees = () => {
   const [users, setUsers] = useState([]);
+  const privateAxiosInstance = useAxiosPrivate();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     let isMounted = true;
@@ -10,13 +14,14 @@ const Users = () => {
 
     const fetchUsers = async () => {
       try {
-        const res = await axiosInstance.get("/employees", {
+        const res = await privateAxiosInstance.get("/employees", {
           signal: controller.signal,
         });
         console.log(res.data);
         isMounted && setUsers(res.data);
       } catch (err) {
         console.error(err);
+        navigate("/login", { state: { from: location }, replace: true });
       }
     };
 
@@ -26,14 +31,14 @@ const Users = () => {
       isMounted = false;
       controller.abort();
     };
-  }, []);
+  }, [location, navigate, privateAxiosInstance]);
   return (
     <article>
-      <h2>Users List</h2>
+      <h2>Employee List List</h2>
       {users?.length ? (
         <ul>
           {users.map((user, i) => (
-            <li key={i}>{user?.username}</li>
+            <li key={i}>{`${user?.firstName} ${user?.lastName}`}</li>
           ))}
         </ul>
       ) : (
@@ -43,4 +48,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default Employees;

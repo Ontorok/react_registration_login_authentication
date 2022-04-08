@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Users from "./Users";
+import Employees from "./Employees";
 
 export const Admin = () => {
   return (
@@ -8,7 +8,7 @@ export const Admin = () => {
       <h1>Admins Page</h1>
       <br />
       <br />
-      <Users />
+      <Employees />
       <br />
       <div className="flexGrow">
         <Link to="/">Home</Link>
