@@ -36,7 +36,7 @@ const Employees = () => {
     <article>
       <h2>Employee List List</h2>
       {users?.length ? (
-        <ul>
+        <ul className="employee-list">
           {users.map((user, i) => (
             <li key={i}>{`${user?.firstName} ${user?.lastName}`}</li>
           ))}

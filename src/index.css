@@ -79,7 +79,7 @@ button {
   bottom: -10px;
 }
 
-.instructions > svg {
+.instructions>svg {
   margin-right: 0.25rem;
 }
 
@@ -119,4 +119,16 @@ button {
   display: flex;
   justify-content: flex-start;
   align-items: flex-end;
+}
+
+.employee-list li {
+  list-style-type: none;
+  font-size: 16px;
+  transition: font-size 0.5s ease-in-out;
+  display: flex;
+  align-items: center;
+}
+
+.employee-list li:hover {
+  font-size: 20px;
 }
